@@ -171,32 +171,6 @@ class PMProGateway_mercadopago extends PMProGateway {
 		do_action("pmpro_paypalexpress_session_vars");
 	}
 
-	
-	/**
-	 * Swap in user/pass/etc from session
-	 *
-	 * @since 1.8
-	 */
-	static function pmpro_checkout_new_user_array($new_user_array) {
-		global $current_user;
-
-		if(!$current_user->ID)
-		{
-			//reload the user fields
-			$new_user_array['user_login'] = $_SESSION['pmpro_signup_username'];
-			$new_user_array['user_pass'] = $_SESSION['pmpro_signup_password'];
-			$new_user_array['user_email'] = $_SESSION['pmpro_signup_email'];
-
-			//unset the user fields in session
-			unset($_SESSION['pmpro_signup_username']);
-			unset($_SESSION['pmpro_signup_password']);
-			unset($_SESSION['pmpro_signup_email']);
-		}
-
-		return $new_user_array;
-	}
-	
-	
 
 	/**
 	 * Swap in our submit buttons.
@@ -303,53 +277,7 @@ class PMProGateway_mercadopago extends PMProGateway {
 
 		//redirect to Mercadopago
 	}
-
-	function getExpressCheckoutDetails(&$order) {
-		$nvpStr="&TOKEN=".$order->Token;
-
-		$nvpStr = apply_filters("pmpro_get_express_checkout_details_nvpstr", $nvpStr, $order);
-		
-		//print_r($order);
-		
-		/* Make the API call and store the results in an array.  If the
-		call was a success, show the authorization details, and provide
-		an action to complete the payment.  If failed, show the error
-		*/
-		$this->httpParsedResponseAr = $this->PPHttpPost('GetExpressCheckoutDetails', $nvpStr);
-
-		if("SUCCESS" == strtoupper($this->httpParsedResponseAr["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($this->httpParsedResponseAr["ACK"])) {
-			$order->status = "review";
-
-			//update order
-			$order->saveOrder();
-
-			return true;
-		} else  {
-			$order->status = "error";
-			$order->errorcode = $this->httpParsedResponseAr['L_ERRORCODE0'];
-			$order->error = urldecode($this->httpParsedResponseAr['L_LONGMESSAGE0']);
-			$order->shorterror = urldecode($this->httpParsedResponseAr['L_SHORTMESSAGE0']);
-			return false;
-			//exit('SetExpressCheckout failed: ' . print_r($httpParsedResponseAr, true));
-		}
-	}
-
-	/**
-	 * Process at checkout
-	 *
-	 * Repurposed in v2.0. The old process() method is now confirm().
-	 */
-
-	function process(&$order) {
-
-		$order->payment_type = "Mercadopago";
-		$order->cardtype = "";
-		$order->ProfileStartDate = date_i18n("Y-m-d", strtotime("+ " . $order->BillingFrequency . " " . $order->BillingPeriod)) . "T0:0:0";
-		$order->ProfileStartDate = apply_filters("pmpro_profile_start_date", $order->ProfileStartDate, $order);
-		
-		return $this->setExpressCheckout($order);
-	}
-
+	
 	/**
 	 * Process charge or subscription after confirmation.
 	 *
@@ -371,9 +299,7 @@ class PMProGateway_mercadopago extends PMProGateway {
 	static function pmpro_checkout_confirmed($pmpro_confirmed) {
 		
 		global $pmpro_msg, $pmpro_msgt, $pmpro_level, $current_user, $pmpro_review, $pmpro_paypal_token, $discount_code, $bemail;
-		
-		//print_r($_REQUEST);
-		
+			
 		if( empty( $pmpro_msg ) && ( !empty( $_REQUEST['collection_status'] ) ) ) {
 			
 			$morder = new MemberOrder();
@@ -413,7 +339,10 @@ class PMProGateway_mercadopago extends PMProGateway {
 					$morder->TrialBillingCycles = $pmpro_level->trial_limit;
 					$morder->TrialAmount = $pmpro_level->trial_amount;
 				}
-
+				
+				
+				$pmpro_confirmed = true;
+				
 				if($morder->confirm()) {
 					$pmpro_confirmed = true;
 				}
@@ -435,33 +364,6 @@ class PMProGateway_mercadopago extends PMProGateway {
 		else
 			return $pmpro_confirmed;
 	
-	}
-	
-	
-	/*
-		Check if a PayPal gateway is enabled for PMPro.
-	*/
-	function pmproappe_using_paypal( $check_gateway = null ) {
-	
-		if (is_null($check_gateway)) {
-	
-			global $gateway;
-			$check_gateway = $gateway;
-		}
-	
-		$paypal_gateways = apply_filters('pmpro_paypal_gateways', array('paypal', 'paypalstandard', 'paypalexpress' ) );
-	
-		if ( in_array($check_gateway, $paypal_gateways)) {
-			return true;
-		}
-	
-		return false;
-	}
-
-	// AGREGO LAS OPCIONES DE PAGO
-	function pmproappe_pmpro_checkout_boxes() {
-		
-	}
-	
+	}	
 			
 }	

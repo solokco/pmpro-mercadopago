@@ -181,7 +181,7 @@ class Pmpro_Mercadopago {
 			
 			$this->loader->add_action('init', $plugin_settings , 'init' );
 			
-			$this->loader->add_action("pmpro_checkout_boxes", $plugin_settings , "pmproappe_pmpro_checkout_boxes", 20);
+			//$this->loader->add_action("pmpro_checkout_boxes", $plugin_settings , "pmproappe_pmpro_checkout_boxes", 20);
 			
 			
 			

@@ -1,6 +1,6 @@
 <tr class="pmpro_settings_divider gateway gateway_mercadopago" <?php if($gateway != "mercadopago") { ?>style="display: none;"<?php } ?>>
 	<td colspan="2">
-		<?php _e('Mercadopago Settings', 'pmpro'); ?>
+		<?php _e('Mercadopago Settings', 'pmpro-mercadopago'); ?>
 	</td>
 </tr>
 
@@ -21,17 +21,21 @@
 			<option value="venezuela" <?php selected(pmpro_getOption('pais_mercadopago'), "venezuela");?>>Venezuela</option>
 		</select>
 		
+		<p><?php _e( "Por <strong>restricciones de Mercadopago</strong> Los pagos <strong>recurrentes o suscripciones</strong> sólo están disponibles para <strong>Argentina, Brasil y México</strong>" , "pmpro-mercadopago") ?></p>
+		
 		<ul>
-			<li class="mercadopago_credenciales mercadopago_credenciales_argentina"><a href="https://www.mercadopago.com/mla/account/credentials?type=basic" 	target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Argentina</a> </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_brasil"><a href="https://www.mercadopago.com/mlb/account/credentials?type=basic" 		target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Brasil</a>	   </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_chile"><a href="https://www.mercadopago.com/mlc/account/credentials?type=basic" 		target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Chile</a>	   </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_colombia"><a href="https://www.mercadopago.com/mco/account/credentials?type=basic" 	target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Colombia</a>  </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_mexico"><a href="https://www.mercadopago.com/mlm/account/credentials?type=basic" 		target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Mexico</a>	   </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_peru"><a href="https://www.mercadopago.com/mpe/account/credentials?type=basic" 		target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Peru</a>	   </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_uruguay"><a href="https://www.mercadopago.com/mlu/account/credentials?type=basic" 		target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Uruguay</a>   </li>
-			<li class="mercadopago_credenciales mercadopago_credenciales_venezuela"><a href="https://www.mercadopago.com/mlv/account/credentials?type=basic" 	target="_blank">Haz click aqui para conseguir las credenciales de Mercadopago - Venezuela</a> </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_argentina"><a href="https://www.mercadopago.com/mla/account/credentials?type=basic" 	target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Argentina</a> </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_brasil"><a href="https://www.mercadopago.com/mlb/account/credentials?type=basic" 		target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Brasil</a>	   </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_chile"><a href="https://www.mercadopago.com/mlc/account/credentials?type=basic" 		target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Chile</a>	   </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_colombia"><a href="https://www.mercadopago.com/mco/account/credentials?type=basic" 	target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Colombia</a>  </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_mexico"><a href="https://www.mercadopago.com/mlm/account/credentials?type=basic" 		target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Mexico</a>	   </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_peru"><a href="https://www.mercadopago.com/mpe/account/credentials?type=basic" 		target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Peru</a>	   </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_uruguay"><a href="https://www.mercadopago.com/mlu/account/credentials?type=basic" 		target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Uruguay</a>   </li>
+			<li class="mercadopago_credenciales mercadopago_credenciales_venezuela"><a href="https://www.mercadopago.com/mlv/account/credentials?type=basic" 	target="_blank"><?php _e( "Haz click aqui para conseguir las credenciales de Mercadopago - " , "pmpro-mercadopago") ?> Venezuela</a> </li>
 		</ul>
 		
+		<a id="mercadopago_sandbox_cards" href="https://www.mercadopago.com.ve/developers/en/solutions/payments/custom-checkout/test-cards/" target="_blank" style="display: none;"><?php _e( "Ver tarjetas de credito para probar el gateway" , "pmpro-mercadopago") ?></a>
+
 	</td>
 	
 </tr>
